@@ -141,6 +141,7 @@ let category = {
         {
           "name": "Home Appliances",
           "id": 6,
+          "image" : "https://imgmedia.lbb.in/media/2023/08/64e30ec0dcc87514d40b0292_1692602048310.jpg",
           "list": [
             {
               "name": "Other Home Appliances",
@@ -179,6 +180,7 @@ let category = {
         {
           "name": "Computer & Office",
           "id": 7,
+          "image" : "https://www.sigel-office.com/sites/default/files/styles/max_2200/public/2020-12/Schreibtisch-Accessoires_Category-main.jpg?itok=3Vvl8vK1",
           "list": [
             {
               "name": "Desktops & AIO",
@@ -253,6 +255,7 @@ let category = {
         {
           "name": "Home Improvement",
           "id": 13,
+          "image" : "https://st.depositphotos.com/1031174/2234/i/450/depositphotos_22345609-stock-photo-work-tools.jpg",
           "list": [
             {
               "name": "Electrical Equipment & Supplies",
@@ -387,6 +390,7 @@ let category = {
         {
           "name": "Home & Garden",
           "id": 15,
+          "image" : "https://www.residencestyle.com/wp-content/uploads/2021/08/Garden-1.jpg",
           "list": [
             {
               "name": "Garden Supplies",
@@ -433,6 +437,7 @@ let category = {
         {
           "name": "Sports & Entertainment",
           "id": 18,
+          "image" : "https://www.shutterstock.com/image-photo/different-sport-equipment-on-green-260nw-2042934008.jpg",
           "list": [
             {
               "name": "Sports Competitions",
@@ -515,6 +520,7 @@ let category = {
         {
           "name": "Office & School Supplies",
           "id": 21,
+          "image" : "https://static.vecteezy.com/system/resources/previews/022/966/729/original/isometric-stationery-school-supplies-glue-notebook-material-pen-scissors-stapler-ruler-eraser-office-tools-and-equipment-set-vector.jpg",
           "list": [
             {
               "name": "Pens, Pencils & Writing Supplies",
