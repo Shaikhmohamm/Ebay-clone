@@ -40,4 +40,25 @@ export const getListOfProducts = async (req, res) => {
       res.status(500).json({ error: 'Failed to fetch products' });
     }
   }
+
+
+  export const getProductDetailsById = async (req, res) => {
+    const producId = req.params.id
+
+    try {
+        const response = await axios.get(`${BASE_URL}/item_detail`, {
+            params: {
+                itemId: producId
+            },
+            headers: {
+                "x-rapidapi-key": API_KEY,
+                "x-rapidapi-host": HOST
+            }
+        })
+
+        res.json(response.data.result)
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to fetch product details' });
+    }
+}
   
