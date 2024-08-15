@@ -2,6 +2,7 @@ import express from "express"
 import cors from "cors"
 import cookieParser from "cookie-parser";
 import categoryRouter from "./routes/category.router.js";
+import userRouter from "./routes/user.router.js";
 
 const app = express()
 
@@ -18,8 +19,8 @@ app.use(cookieParser()); // Parse cookies from incoming requests
 // for categories
 app.use('/api', categoryRouter )
 
-// // for user related requests
-// app.use('/api', userRouter)
+// for user related requests
+app.use('/api', userRouter)
 
 // // for cart related requests
 // app.use(`/api`, cartRouter)
