@@ -3,6 +3,9 @@ import cors from "cors"
 import cookieParser from "cookie-parser";
 import categoryRouter from "./routes/category.router.js";
 import userRouter from "./routes/user.router.js";
+import cartRouter from "./routes/cart.router.js";
+import wishlistRouter from "./routes/wishlist.router.js";
+
 
 const app = express()
 
@@ -22,11 +25,11 @@ app.use('/api', categoryRouter )
 // for user related requests
 app.use('/api', userRouter)
 
-// // for cart related requests
-// app.use(`/api`, cartRouter)
+// for cart related requests
+app.use(`/api`, cartRouter)
 
-// // for wishlist related requests
-// app.use(`/api`, wishlistRouter)
+// for wishlist related requests
+app.use(`/api`, wishlistRouter)
 
 
 
