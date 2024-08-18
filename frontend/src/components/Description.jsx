@@ -36,7 +36,7 @@ const Description = ({product}) => {
           </TabsTrigger>
         </TabsList>
         <TabsContent className='mt-0' value="specs">
-          <div className="border-2 mx-10 font-sans rounded-lg p-4 bg-white">
+          <div className="overflow-x-scroll border-2 mx-10 font-sans rounded-lg p-4 bg-white">
             <h1 className='text-xl font-semibold text-black mb-2'>
               Item specification
             </h1>

@@ -136,14 +136,14 @@ const Cart = () => {
                             >
                                 <div className="w-20 md:w-44 h-20 md:h-44 relative rounded-md flex-shrink-0">
                                     <img
-                                        src={item.image}
+                                        src={`https:${item.image}`}
                                         alt="img"
                                         className="w-full h-full object-cover rounded-md"
                                     />
                                 </div>
                                 <div className="flex flex-col gap-2 md:gap-4 flex-1">
                                     <button
-                                        onClick={() => handleProductInfo(item)}
+                                        // onClick={() => handleProductInfo(item)}
                                         className="text-start"
                                     >
                                         <div className="line-clamp-1 md:line-clamp-2">

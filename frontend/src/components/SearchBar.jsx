@@ -32,8 +32,13 @@ const router = useRouter();
     const products = response.data;  // Assuming the data contains the products
     console.log(products)
 
+    
+
     // Redirecting to the product list page with the fetched data
     router.push(`/productlist?q=${encodeURIComponent(searchInput)}`);
+
+    // clear the search bar text
+    setSearchInput('')
 
   } catch (error) {
     console.error('Error fetching the products:', error);

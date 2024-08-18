@@ -5,7 +5,7 @@ function ProductCard({ product }) {
   const productId = product.item.itemId 
 
   return (
-    <div className="flex flex-row justify-center items-center space-x-2 space-y-4 md:space-y-0 md:space-x-6 p-3 rounded-lg shadow-sm">
+    <div className="flex flex-row items-center space-x-2 space-y-4 md:space-y-0 md:space-x-6 p-3 rounded-lg shadow-sm">
       <img
         className="rounded-lg w-32 h-32 md:w-52 md:h-52 lg:w-64 lg:h-64 object-cover"
         src={product.item.image}

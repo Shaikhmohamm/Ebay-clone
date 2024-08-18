@@ -22,7 +22,7 @@ export default function Home() {
           <br /><br /> <br />
           <BottomSection />
           <br /><br />
-          {/* <Footer /> */}
+          <Footer />
         </div>
       )}
     </>

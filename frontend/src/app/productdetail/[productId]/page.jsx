@@ -62,7 +62,7 @@ export default function ProductDetail({ params }) {
           {
             productId: `${item.itemId}`,
             title: `${item.title}`,
-            price: 25,
+            price: (item.sku.base[0].price*83).toFixed(2),
             image: `${item.images[0]}`,
             quantity: `${quantity}`,
             size: "m",

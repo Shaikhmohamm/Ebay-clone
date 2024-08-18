@@ -68,25 +68,25 @@ const NavBar = () => {
                         <Link href='/register' className='text-blue-500 underline'>
                             Register
                         </Link>
-                        <Link href='/dailydeals'>
+                        <Link href=''>
                             Daily deals
                         </Link>
-                        <Link href='/contacts' className='hidden lg:block'>
+                        <Link href='' className='hidden lg:block'>
                             Help & contacts
                         </Link>
                     </div>
                 )}
                 <div className='flex space-x-6 items-center'>
-                    <Link href='/sell' className='text-xs'>
+                    <Link href='' className='text-xs'>
                         Sell
                     </Link>
-                    <Link href='/watchlist' className='hidden lg:block text-xs'>
+                    <Link href='' className='hidden lg:block text-xs'>
                         Watchlist
                     </Link>
-                    <Link href='/myebay' className='text-xs'>
+                    <Link href='' className='text-xs'>
                         <MyebayHoverCard />
                     </Link>
-                    <Link href='/notification' className='text-2xl'>
+                    <Link href='' className='text-2xl'>
                         <NotificationHoverCard />
                     </Link>
                     {isAuthenticated ? (
