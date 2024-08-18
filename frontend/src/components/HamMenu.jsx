@@ -15,9 +15,16 @@ import {
     SheetTitle,
     SheetTrigger,
   } from "@/components/ui/sheet"
+import Cookies from 'js-cookie';
+import { toast } from './ui/use-toast';
+import { useDispatch } from 'react-redux';
+import { useRouter } from 'next/navigation';
+import { logout } from '@/redux/slice/authSlice';
 
-const HamMenu = () => {
+const HamMenu = ({isAuthenticated}) => {
     const [categories, setCategories] = useState([]);
+    const dispatch = useDispatch()
+    const router = useRouter()
 
     const fetchCategories = async () => {
         try {
@@ -62,13 +69,33 @@ const HamMenu = () => {
                       </SheetTitle>
                       <Separator className="my-1 mt-12" />
                       <div className='flex gap-5 justify-center items-center'>
-                          <Link href='/signin' className='font-bold text-xl text-blue-800'>
-                              Sign in
-                          </Link>
-                          <p className='text-xl'>Or</p>
-                          <Link href='/register' className='font-bold text-xl text-blue-800'>
-                              Register
-                          </Link>
+                          {isAuthenticated ? (
+                              <button
+                                  onClick={() => {
+                                      Cookies.remove('UserAuth')
+                                      dispatch(logout()); // Update the auth state in Redux
+                                      toast({
+                                          title: "Success",
+                                          description: "Logged out successfully",
+                                          variant: "destructive",
+                                      });
+                                      router.push('/')
+                                  }}
+                                  className='text-blue-500 mt-2'>
+                                  Logout
+                              </button>
+                          ) : (
+                                  <div className='flex space-x-2'>
+                                      <Link href='/signin' className='font-bold text-md text-blue-800'>
+                                          Sign in
+                                      </Link>
+                                      <p className='text-md'>Or</p>
+                                      <Link href='/register' className='font-bold text-md text-blue-800'>
+                                          Register
+                                      </Link>
+                                  </div>
+                          )}
+                          
                       </div>
                   </SheetHeader>
               </SheetContent>

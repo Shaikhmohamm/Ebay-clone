@@ -46,7 +46,7 @@ const MobileNav = () => {
                 <div className='flex gap-5 items-center justify-center mx-2 font-semibold'>
                     <CgProfile className='text-xl' onClick={handleProfileClick} />
                     <FiShoppingCart className='text-xl' onClick={handleCartClick} />
-                    <HamMenu />
+                    <HamMenu isAuthenticated = {isAuthenticated} />
                 </div>
                 
             </nav>
