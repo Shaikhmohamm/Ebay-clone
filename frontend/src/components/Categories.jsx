@@ -1,10 +1,12 @@
 "use client";
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
 
 const Categories = () => {  
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
+  const router = useRouter()
 
   const fetchCategories = async () => {
     try {
@@ -21,6 +23,14 @@ const Categories = () => {
     fetchCategories();
   }, []);
 
+
+  const handleClick = (cat) => {
+    // Construct the URL with the query parameter
+    const url = `/productlist?q=${encodeURIComponent(cat)}`;
+    // Navigate to the URL
+    router.push(url);
+  };
+
   if (loading) return <div className='text-xl text-center'>Loading..</div>;
 
   return (
@@ -35,8 +45,9 @@ const Categories = () => {
               className='w-28 h-28 sm:w-32 sm:h-32 md:w-36 md:h-36 lg:w-40 lg:h-40 bg-white shadow-lg rounded-full flex items-center justify-center hover:bg-blue-50 hover:shadow-xl transition duration-300 ease-in-out'
             >
               <img
+                onClick={()=> handleClick(category.name)}
                 src={category.image}
-                className='w-full h-full object-cover rounded-md md:rounded-full'
+                className='w-full h-full object-cover rounded-md md:rounded-full cursor-pointer transition-transform transform hover:scale-105 hover:shadow-lg'
                 alt='img'
               />
             </div>

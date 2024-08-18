@@ -6,6 +6,7 @@ import axios from 'axios';
 
 
 // Mock Data
+// incase of api calls reached to its limit below data will be useful
 const mockProducts = {
   "resultList": [
     {
@@ -128,7 +129,7 @@ function ProductList() {
 
   return (
     <div className="flex">
-      <div className="hidden lg:block text-center mx-auto rounded-lg my-3 w-64 h-screen border-2 border-gray-200 bg-white shadow-lg p-4">
+      <div className="hidden text-center mx-auto rounded-lg my-3 w-64 h-screen border-2 border-gray-200 bg-white shadow-lg p-4">
         <h2 className="text-xl font-semibold mb-4">Filters</h2>
         <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-2">
@@ -154,7 +155,7 @@ function ProductList() {
           </div>
         </div>
       </div>
-      <div className="flex flex-col lg:w-3/4 md:mx-auto">
+      <div className="flex flex-col lg:w-full md:mx-auto">
         <h1 className='text-lg md:text-2xl mx-4 font-bold my-4'>
           Results for &quot;{name}&quot;
         </h1>
