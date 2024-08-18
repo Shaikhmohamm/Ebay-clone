@@ -55,7 +55,7 @@ const MyCarousel = () => {
                                 <Image
                                     src={img3}
                                     alt="Furniture Image"
-                                    width={750} // Adjust the width and height as needed
+                                    width={750} 
                                     className="object-contain rounded-md"
                                 />
                             </div>
@@ -84,7 +84,7 @@ const MyCarousel = () => {
                                 <Image
                                     src={img2}
                                     alt="Shoes Image"
-                                    width={580} // Adjust the width and height as needed
+                                    width={580}
                                     className="object-contain rounded-md"
                                 />
                             </div>
@@ -113,7 +113,7 @@ const MyCarousel = () => {
                                 <Image
                                     src={img1}
                                     alt="Laptops Image"
-                                    width={600} // Adjust the width and height as needed
+                                    width={600} 
                                     className="object-contain rounded-md"
                                 />
                             </div>

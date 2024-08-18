@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
 import { toast } from './ui/use-toast';
   
-
+// this will render when the screen size reaches to mobile size
 const MobileNav = () => {
     const router = useRouter()
     const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);

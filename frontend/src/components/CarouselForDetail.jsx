@@ -10,12 +10,12 @@ import {
 import Autoplay from 'embla-carousel-autoplay';
 import useEmblaCarousel from 'embla-carousel-react';
 
-const CarouselForDetail = ({ images, selectedImage }) => {
+const CarouselForDetail = ({ images }) => {
     const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false }, [Autoplay()]);
 
     useEffect(() => {
         if (emblaApi) {
-            // You can access the Embla API here if needed
+            // we can access the Embla API here if needed
         }
     }, [emblaApi]);
 

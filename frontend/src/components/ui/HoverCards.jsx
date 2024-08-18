@@ -7,6 +7,8 @@ import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
 import { toast } from './use-toast';
 
+
+// this file contains different hover used in navigation section
 function NotificationHoverCard() {
   return (
     <HoverCard.Root>

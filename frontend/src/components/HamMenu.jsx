@@ -26,6 +26,7 @@ const HamMenu = ({isAuthenticated}) => {
     const dispatch = useDispatch()
     const router = useRouter()
 
+    // fetch the categories detail from api
     const fetchCategories = async () => {
         try {
             const response = await axios.get('https://ebay-25ak.onrender.com/api/category');

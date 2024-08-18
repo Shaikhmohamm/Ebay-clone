@@ -30,7 +30,7 @@ const router = useRouter();
     });
 
     const products = response.data;  // Assuming the data contains the products
-    console.log(products)
+    // console.log(products)
 
     
 

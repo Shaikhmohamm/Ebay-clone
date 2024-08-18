@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import Cookies from 'js-cookie';
-
+// auth slice to manage the log in state of user
 const initialState = {
   isAuthenticated: false,
 };

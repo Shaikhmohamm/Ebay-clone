@@ -17,13 +17,13 @@ const LoginPage = () => {
   const router = useRouter();
   const dispatch = useDispatch()
 
-  // Define the initial form values
+  // Setting the initial form values
   const initialValues = {
     email: "",
     password: "",
   };
 
-  // Define the form validation schema using Yup
+  // Setting the form validation schema using Yup
   const validationSchema = Yup.object({
     email: Yup.string()
       .email("Invalid email address")

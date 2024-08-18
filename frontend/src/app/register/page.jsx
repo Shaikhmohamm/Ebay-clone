@@ -14,7 +14,7 @@ const SignupPage = () => {
   const router = useRouter();
   
 
-  // Define the initial form values
+  // Setting the initial form values
   const initialValues = {
     firstname: "",
     lastname: "",
@@ -22,7 +22,7 @@ const SignupPage = () => {
     password: "",
   };
 
-  // Define the form validation schema using Yup
+  // Setting the form validation schema using Yup
   const validationSchema = Yup.object({
     firstname: Yup.string()
       .min(2, "First name must be at least 2 characters")
@@ -62,7 +62,7 @@ const SignupPage = () => {
         });
 
         // navigate to signin page
-        router.push("/signin"); // Redirect to the signin page
+        router.push("/signin");
       }
     } catch (error) {
       console.log(`error`, error)

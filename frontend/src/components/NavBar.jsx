@@ -31,10 +31,8 @@ const NavBar = () => {
                 description: "Logged out successfully",
                 variant: "destructive",
             });
-            console.log(`hello 1st`)
-            // Test a simple redirect
-            router.push("/"); // Test if redirect to home works
-            console.log(`hello 2nd`)
+            // redirect
+            router.push("/");
         } catch (error) {
             console.error("Logout failed:", error);
         }

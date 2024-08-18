@@ -15,8 +15,9 @@ import axios from 'axios';
 import { toast } from '@/components/ui/use-toast';
 
 const Cart = () => {
-
+    // state for total cost
     const [totalCost, setTotalCost] = useState(0);
+    // state for items
     const [items, setItems] = useState([]);
 
     // get all products from cart-database and add them to state
@@ -70,6 +71,7 @@ const Cart = () => {
             console.log("ERROR : ", error);
         }
     };
+
     // to remove one product from cart
     const removeProductById = async (item) => {
         let token = Cookies.get('UserAuth')
@@ -85,7 +87,7 @@ const Cart = () => {
                     },
                 }
             );
-            
+            // displaying a toast for removal
             toast({
                 title: "Success",
                 description: "Item removed",
@@ -95,7 +97,7 @@ const Cart = () => {
             console.log("REMOVED SUCCESSFULLY");
     
             const data = response.data.cart;
-            setItems(data); // Update the state with the remaining items
+            setItems(data);
         } catch (error) {
             console.log("ERROR : ", error);
         }
@@ -143,7 +145,6 @@ const Cart = () => {
                                 </div>
                                 <div className="flex flex-col gap-2 md:gap-4 flex-1">
                                     <button
-                                        // onClick={() => handleProductInfo(item)}
                                         className="text-start"
                                     >
                                         <div className="line-clamp-1 md:line-clamp-2">

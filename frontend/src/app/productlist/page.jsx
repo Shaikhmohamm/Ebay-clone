@@ -6,7 +6,7 @@ import axios from 'axios';
 
 
 // Mock Data
-// incase of api calls reached to its limit below data will be useful
+// in case of api calls reached to its limit below data will be useful
 const mockProducts = {
   "resultList": [
     {
@@ -98,11 +98,13 @@ function ProductList() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
+
+  // get the name and page value from params
   const searchParams = useSearchParams();
   const name = searchParams.get('q');
   const page = searchParams.get('page') || 1;
 
-
+  // fetching the list of products
   useEffect(() => {
     const fetchProducts = async () => {
       setLoading(true);
@@ -159,6 +161,7 @@ function ProductList() {
         <h1 className='text-lg md:text-2xl mx-4 font-bold my-4'>
           Results for &quot;{name}&quot;
         </h1>
+        {/* product card component to handle the card */}
         {products.map((product, index) => (
           <ProductCard key={index} product={product} />
         ))}
