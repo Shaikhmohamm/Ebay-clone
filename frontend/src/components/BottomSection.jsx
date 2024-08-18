@@ -10,10 +10,10 @@ const BottomSection = () => {
         <div className='flex justify-between mx-auto w-3/4 h-80 bg-red-600 rounded-lg'>
           <div>
               <div className="p-4 text-black rounded-md h-full">
-                  <p className="text-2xl font-bold mb-3">
-                      Be the star of this summer's<br />
-                      games
-                  </p>
+                      <p className="text-2xl font-bold mb-3">
+                          Be the star of this summer&apos;s<br />
+                          games
+                      </p>
                   <p className="text-md">
                       Step up to the podium with top<br />
                       sneakers and great prices
@@ -35,10 +35,10 @@ const BottomSection = () => {
       <div className='flex justify-between mx-auto w-3/4 h-80 bg-teal-300 rounded-lg'>
           <div>
               <div className="p-4 text-black rounded-md h-full">
-                  <p className="text-2xl font-bold mb-3">
-                      Be the star of this summer's<br />
-                      games
-                  </p>
+                      <p className="text-2xl font-bold mb-3">
+                          Be the star of this summer&apos;s<br />
+                          games
+                      </p>
                   <p className="text-md">
                       Step up to the podium with top<br />
                       sneakers and great prices
@@ -52,6 +52,7 @@ const BottomSection = () => {
               <Image
                   className='w-full h-80 rounded-lg'
                   src={img2}
+                  alt='img'
               />
           </div>
       </div>

@@ -152,8 +152,8 @@ export default function ProductDetail({ params }) {
             </button>
           </div>
           <div className='border-2 bg-gray-100 rounded-lg p-2'>
-            {product.service.map((serv) => (
-              <div className=''>
+            {product.service.map((serv, index) => (
+              <div key={index} className=''>
                 <p className='font-bold mt-2 text-md underline'>
                   {serv.title}
                 </p>

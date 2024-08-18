@@ -158,7 +158,7 @@ function ProductList() {
       </div>
       <div className="flex flex-col lg:w-3/4 md:mx-auto">
         <h1 className='text-lg md:text-2xl mx-4 font-bold my-4'>
-          Results for "{name}"
+          Results for &quot;{name}&quot;
         </h1>
         {products.map((product, index) => (
           <ProductCard key={index} product={product} />

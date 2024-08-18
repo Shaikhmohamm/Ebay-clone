@@ -96,7 +96,7 @@ const Description = ({product}) => {
               </Table>
             </div>
             <p className='text-sm font-light my-4'>
-              Estimated delivery dates include seller's handling time,
+              Estimated delivery dates include seller&#39;s handling time,
               origin ZIP Code, destination ZIP Code and time of acceptance and will depend on shipping
               service selected and receipt of cleared payment. Delivery times may vary, especially
               during peak periods.

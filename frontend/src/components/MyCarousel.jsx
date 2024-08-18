@@ -67,7 +67,7 @@ const MyCarousel = () => {
                         <div className="flex items-center justify-around space-x-5 h-full">
                             <div className="p-4 text-black rounded-md h-full">
                                 <p className="text-lg md:text-2xl font-bold mb-3">
-                                    Be the star of this summer's<br className='hidden md:block' />
+                                    Be the star of this summer&apos;s<br className='hidden md:block' />
                                     games
                                 </p>
                                 <p className="text-sm md:text-lg md:mt-10">
