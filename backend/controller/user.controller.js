@@ -8,7 +8,7 @@ dotenv.config()
 export const register = async (req, res) => {
 
     try {
-        const { firstname, lastname, email, password } = req.body;
+        const { firstname, lastname, email, password, role } = req.body;
         // Check if email or password is missing
         if (!email || !password) {
             return res.status(400).json({
@@ -30,6 +30,8 @@ export const register = async (req, res) => {
             lastname : lastname,
             email: email,
             password: hashedPassword,
+            role,
+            isVerified : false // default for new admins
             
         });
         await newUser.save();
@@ -78,12 +80,15 @@ export const Login = async function (req, res) {
         // Generate JWT token
         const jwkToken = jwt.sign({
             email: email,
-            userId: user._id
+            userId: user._id,
+            role : user.role
         }, process.env.SECRET_TOKEN);
         res.cookie("UserAuth", jwkToken).status(200).json({
             success: true,
             message: "User Login successfully",
             loginToken: jwkToken,
+            role: user.role,
+            isVerified : user.isVerified
         });
     }
     catch (error) {

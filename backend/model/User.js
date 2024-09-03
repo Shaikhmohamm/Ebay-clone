@@ -18,6 +18,15 @@ const userSchema = new mongoose.Schema({
         type : String,
         required : true
     },
+    role: {
+        type: String,
+        enum: ['user', 'admin'],
+        default: 'user', // Default role is 'user'
+    },
+    isVerified : {
+        type : Boolean,
+        required : true,
+    },
     cart: [
         {
             productId: { type: String, required: true },

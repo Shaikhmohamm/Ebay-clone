@@ -29,6 +29,7 @@ try{
         // Extract email, userId from the decoded token and add it to request body
 		req.body.email = decodedToken.email;
 		req.userId = decodedToken.userId;
+		req.role = decodedToken.role; // Add role to request object
 		
         // Proceed to the next middleware
 		next();
