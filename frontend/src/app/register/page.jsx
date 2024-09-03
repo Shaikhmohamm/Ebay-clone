@@ -10,9 +10,9 @@ import { toast } from "@/components/ui/use-toast";
 
 
 const SignupPage = () => {
-  
+
   const router = useRouter();
-  
+
 
   // Setting the initial form values
   const initialValues = {
@@ -20,6 +20,7 @@ const SignupPage = () => {
     lastname: "",
     email: "",
     password: "",
+    role: "user" // default
   };
 
   // Setting the form validation schema using Yup
@@ -41,12 +42,14 @@ const SignupPage = () => {
       .matches(/[0-9]/, "Password must contain at least one number")
       .matches(/[@$!%*?&]/, "Password must contain at least one special character")
       .required("Password is required"),
+    role: Yup.string(), // No validation needed, as it's preset
   });
 
   // Handle form submission
   const handleSignup = async (values, { setSubmitting }) => {
-  
+    console.log(values)
     try {
+
       const response = await axios.post(`https://ebay-25ak.onrender.com/api/user/register`, values)
       console.log(response.data)
       if (response.data.success) {
@@ -67,7 +70,7 @@ const SignupPage = () => {
     } catch (error) {
       console.log(`error`, error)
     }
-    
+
   };
 
   return (
@@ -130,7 +133,7 @@ const SignupPage = () => {
                   />
                   <ErrorMessage name="email" component="div" className="text-red-500 text-sm mt-1" />
                 </div>
-                
+
                 <div>
                   <Field
                     id="password"
@@ -141,7 +144,20 @@ const SignupPage = () => {
                   />
                   <ErrorMessage name="password" component="div" className="text-red-500 text-sm mt-1" />
                 </div>
-                
+
+                <div>
+
+                  <Field
+                    as="select"
+                    id="role"
+                    name="role"
+                    className="w-full px-3 py-2 border border-gray-500 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-gray-100"
+                  >
+                    <option value="user">User</option>
+                    <option value="admin">Admin</option>
+                  </Field>
+                </div>
+
                 <button
                   type="submit"
                   disabled={isSubmitting}

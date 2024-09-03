@@ -37,10 +37,14 @@ const LoginPage = () => {
 const handleLogin = async (values, { setSubmitting }) => {
   try {
     const response = await axios.post(`https://ebay-25ak.onrender.com/api/user/login`, values);
+    // console.log(response.data)
 
-    const { success, loginToken } = response.data;
+    const { success, loginToken, role, isVerified } = response.data;
+    // if (!isVerified) { 
+    //   console.log("not verified")
+    // }
 
-    if (success) {
+    if (role === 'user' && success) {
       // set isauthenticate to true
       dispatch(login())
       // Store the token in a cookie
@@ -57,7 +61,34 @@ const handleLogin = async (values, { setSubmitting }) => {
 
       setSubmitting(false);
       router.push("/"); // Redirect
-    } else {
+    } 
+    else if (!isVerified) {
+      console.log("Not a verified admin")
+      // display a toast notification
+      toast({
+        title: "Success",
+        description: "You are not a verified admin",
+        variant: "destructive",
+      });
+      // router.push(`/admin/dashboard`)
+    }
+    else if (role === 'admin' && success && isVerified) {
+      // set isauthenticate to true
+      dispatch(login())
+      // Store the token in a cookie
+      Cookies.set('UserAuth', loginToken, {
+        expires: 7, // Token will expire in 7 days
+      });
+      console.log(`you are verified now`)
+      // display a toast notification
+      toast({
+        title: "Success",
+        description: "admin logged in successfully",
+        variant: "destructive",
+      });
+      router.push(`/admin/dashboard`)
+    }
+    else {
       toast({
         title: "Failed",
         description: "Enter correct email/password",
