@@ -14,9 +14,7 @@ import {
 import Image from 'next/image'
 
 const Description = ({product}) => {
-  const { list } = product.item.properties
-  const {description} = product.item
-  const slicedList = list.slice(0, 26)
+  
   return (
     <div className='hidden md:block'>
         <Tabs defaultValue="specs" className="">
@@ -41,7 +39,7 @@ const Description = ({product}) => {
               Item specification
             </h1>
             <div className="grid grid-cols-2 gap-1 rounded-md py-2">
-              {slicedList.map((single, index) => (
+              {product.properties.map((single, index) => (
                 <div key={index} className="flex gap-8 items-center py-2">
                   <p className="w-1/4 text-sm text-gray-700">{single.name}</p>
                   <p className="w-1/4 text-sm font-bold">{single.value}</p>
@@ -57,7 +55,7 @@ const Description = ({product}) => {
               Seller assumes all responsibility for this listing.
               </h1>
               <p>
-              eBay item number: {product.item.itemId}
+              eBay item number: {product._id}
               </p>
             </div>
             <h1 className='text-2xl font-bold my-5'>
@@ -65,11 +63,11 @@ const Description = ({product}) => {
             </h1>
             <div className='font-medium'>
               <p className='my-2'>
-                Item location: {product.delivery.shippingFrom}
+                Item location: {product.itemLocation}
               </p>
               <p className=''>
-                Ship to: <span className='text-slate-400'>
-                  {product.delivery.shippingTo}
+                Ship to: <span className='text-slate-400 text-sm'>
+                  Worldwide
                 </span>
               </p>
             </div>
@@ -86,11 +84,11 @@ const Description = ({product}) => {
                 </TableHeader>
                 <TableBody>
                   <TableRow>
-                    <TableCell className="font-medium">{product.delivery.shippingList[0].note[0]}</TableCell>
-                    <TableCell>{product.delivery.shippingTo}</TableCell>
+                    <TableCell className="font-medium">Free shipping</TableCell>
+                    <TableCell>{product.shippingLocation}</TableCell>
                     <TableCell className="">Ebay standard shipping</TableCell>
-                    <TableCell>{product.delivery.shippingList[0].note[1]}</TableCell>
-                    <TableCell className="">{product.delivery.shippingList[0].estimateDeliveryDate}</TableCell>
+                    <TableCell>Within 3 days of order</TableCell>
+                    <TableCell className="">Within a week</TableCell>
                   </TableRow>
                 </TableBody>
               </Table>
@@ -162,10 +160,10 @@ const Description = ({product}) => {
         </TabsContent>
         <TabsContent className='mt-0' value="description">
           <div className="border-2 flex flex-wrap justify-between mx-10 font-sans rounded-lg p-4 bg-white">
-            {description.images.map((image, index) => (
+            {product.images.map((image, index) => (
               <div key={index} className="w-1/3 p-2">
                 <Image
-                  src={`https:${image}`}
+                  src={`${image}`}
                   alt="image"
                   width={550}
                   height={300}

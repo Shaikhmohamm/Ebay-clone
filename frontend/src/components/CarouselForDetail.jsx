@@ -27,9 +27,9 @@ const CarouselForDetail = ({ images }) => {
                         <CarouselItem key={index} className="">
                             <div className="flex justify-center p-5">
                                 <Image
-                                    src={`https:${image}`} 
+                                    src={`${image}`} 
                                     alt='item image'
-                                    width={550} 
+                                    width={550}     
                                     height={300} 
                                     className=""
                                 />

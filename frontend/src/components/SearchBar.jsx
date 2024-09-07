@@ -17,33 +17,16 @@ const router = useRouter();
 
 
  // Function to handle search button click
- const handleSearch = async () => {
-  if (!searchInput.trim()) {
-    // If input is empty, do nothing
-    return;
-  }
-
-  try {
-    // Make the API call
-    const response = await axios.get('https://ebay-25ak.onrender.com/api/products', {
-      params: { name: searchInput, page: 1 }  // Passing the input and page number
-    });
-
-    const products = response.data;  // Assuming the data contains the products
-    // console.log(products)
-
-    
-
-    // Redirecting to the product list page with the fetched data
-    router.push(`/productlist?q=${encodeURIComponent(searchInput)}`);
-
-    // clear the search bar text
+  const handleSearch = async () => {
+    console.log(searchInput)
+    if (!searchInput.trim()) {
+      // If input is empty, do nothing
+      return;
+    }
     setSearchInput('')
-
-  } catch (error) {
-    console.error('Error fetching the products:', error);
-  }
-};
+    // Redirecting to the product list page with the fetched data
+    router.push(`/productlist?z=${encodeURIComponent(searchInput)}`);
+  };
 
   return (
     <>

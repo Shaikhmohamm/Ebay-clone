@@ -138,7 +138,7 @@ const Cart = () => {
                             >
                                 <div className="w-20 md:w-44 h-20 md:h-44 relative rounded-md flex-shrink-0">
                                     <img
-                                        src={`https:${item.image}`}
+                                        src={`${item.image}`}
                                         alt="img"
                                         className="w-full h-full object-cover rounded-md"
                                     />

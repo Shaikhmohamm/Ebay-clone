@@ -25,9 +25,9 @@ function MyDropdownMenu() {
     loadCategories();
   }, []);
 
-  const handleSubItemClick = (subItemName) => {
+  const handleSubItemClick = (subcatid) => {
     // navigate to productlist page with subitem name
-    router.push(`/productlist?q=${encodeURIComponent(subItemName)}`)
+    router.push(`/productlist?q=${encodeURIComponent(subcatid)}`)
   }
 
   return (
@@ -57,7 +57,7 @@ function MyDropdownMenu() {
                   <button
                     key={subIndex}
                     className="w-full text-sm text-gray-700 hover:bg-slate-100 py-1 px-5 rounded transition duration-300 ease-in-out whitespace-nowrap overflow-hidden text-ellipsis"
-                    onClick={()=> handleSubItemClick(subItem.name)} 
+                    onClick={()=> handleSubItemClick(subItem.subcatid)} 
                   >
                     {subItem.name}
                   </button>

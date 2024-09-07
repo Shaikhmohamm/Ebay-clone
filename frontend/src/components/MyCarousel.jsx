@@ -20,7 +20,7 @@ const MyCarousel = () => {
     const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false }, [Autoplay()]);
 
     const handleClick = (category) => {
-            router.push(`productlist?q=${category}`);
+            router.push(`productlist?z=${category}`);
     };
 
     useEffect(() => {
@@ -46,7 +46,7 @@ const MyCarousel = () => {
                                     combine style and functionality.
                                 </p>
                                 <button
-                                    onClick={() => handleClick('furniture')}
+                                    onClick={() => handleClick('sofa')}
                                     className="text-sm md:text-lg px-2 py-1 md:px-6 md:py-2 border-2 border-black rounded-md md:rounded-full hover:bg-black hover:text-white mt-10">
                                     Shop Now
                                 </button>
@@ -104,7 +104,7 @@ const MyCarousel = () => {
                                     laptops that meet your needs.
                                 </p>
                                 <button
-                                    onClick={() => handleClick('laptop')}
+                                    onClick={() => handleClick('tv')}
                                     className="text-sm md:text-lg px-2 py-1 md:px-6 md:py-2 border-2 border-black rounded-md md:rounded-full hover:bg-black hover:text-white mt-10">
                                     Shop Now
                                 </button>

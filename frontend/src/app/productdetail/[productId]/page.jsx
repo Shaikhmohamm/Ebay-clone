@@ -30,7 +30,7 @@ export default function ProductDetail({ params }) {
     const fetchProduct = async () => {
       try {
         console.log(`initially`,product)
-        const response = await axios.get(`https://ebay-25ak.onrender.com/api/product/${productId}`);
+        const response = await axios.get(`https://ebay-25ak.onrender.com/api/products/${productId}`);
         setProduct(response.data);
         console.log(`after changing`,product)
         setLoading(false);
@@ -62,10 +62,10 @@ export default function ProductDetail({ params }) {
         let token = Cookies.get('UserAuth')
         const response = await axios.post("https://ebay-25ak.onrender.com/api/cart/add",
           {
-            productId: `${item.itemId}`,
-            title: `${item.title}`,
-            price: (item.sku.base[0].price*83).toFixed(2),
-            image: `${item.images[0]}`,
+            productId: `${product._id}`,
+            title: `${product.title}`,
+            price: (product.price),
+            image: `${product.images[0]}`,
             quantity: `${quantity}`,
             size: "m",
           },
@@ -76,7 +76,7 @@ export default function ProductDetail({ params }) {
             },
           }
         );
-        // console.log(`api response`, response.data)
+        console.log(`api response`, response.data)
         toast({
           title: "Item added to cart",
           className: "text-red-600 bg-white hover:bg-gray-100 font-bold",
@@ -95,31 +95,31 @@ export default function ProductDetail({ params }) {
       <div className="p-4 lg:flex lg:space-x-5 mx-auto overflow-x-hidden">
         <div className='hidden lg:block p-1'>
           {/* small images section */}
-          {product.item.images.map((image, index) => (
+          {product.images.map((image, index) => (
             <Image
               key={index}
-              src={`https:${image}`}
-              alt={`${product.item.title} image ${index + 1}`}
+              src={`${image}`}
+              alt={`${product.title} image ${index + 1}`}
               width={100}
               height={100}
-              className="mb-2 border-2 rounded-lg object-contain"
+              className="mb-4 border-2 rounded-lg object-contain"
             />
           ))}
         </div>
         {/* central image section */}
         <div className="w-full lg:w-3/4 p-5">
           <CarouselForDetail
-            images={product.item.images}
+            images={product.images}
           />
         </div>
         {/* product details like title, price, sold numbers etc */}
         <div className='flex flex-col space-y-5 lg:w-1/2 px-5 py-4'>
           <h1 className="text-lg md:text-2xl font-semibold mb-4">
-            {product.item.title}
+            {product.title}
             <hr className='mt-2' />
           </h1>
           <div className='flex flex-col space-y-1 font-medium'>
-            <h1 className="text-lg md:text-2xl font-bold mb-5">₹ {(product.item.sku.base[0].price*83).toFixed(2)}</h1>
+            <h1 className="text-lg md:text-2xl font-bold mb-5">₹ {product.price}</h1>
             <div className="mt-2 flex items-center space-x-4">
               
               <label htmlFor="quantity" className="text-sm font-medium text-gray-900">Quantity:</label>
@@ -137,7 +137,7 @@ export default function ProductDetail({ params }) {
               <p className="hidden md:flex font-bold text-sm text-gray-500">More than 10 available</p>
 
               
-              <p className="hidden md:flex font-bold text-sm text-red-500">{product.item.sales} Sold</p>
+              <p className="hidden md:flex font-bold text-sm text-red-500">{product.sales}+ Sold</p>
 
               
             </div>
@@ -148,7 +148,7 @@ export default function ProductDetail({ params }) {
               Buy it now
             </button>
             <button
-              onClick={() => handleAddToCart(product.item, quantity)}
+              onClick={() => handleAddToCart(product.title, quantity)}
               className='w-full h-12 bg-white border-2 border-blue-400 text-blue-400 font-bold rounded-full mt-3 px-4 py-2 hover:bg-gray-100'>
               Add to cart
             </button>
@@ -157,16 +157,22 @@ export default function ProductDetail({ params }) {
             </button>
           </div>
           <div className='border-2 bg-gray-100 rounded-lg p-2'>
-            {product.service.map((serv, index) => (
-              <div key={index} className=''>
+              <div className=''>
                 <p className='font-bold mt-2 text-md underline'>
-                  {serv.title}
+                Fast delivery
                 </p>
                 <p className='text-sm'>
-                  {serv.desc}
+                Collect a $1.00 coupon if your order arrives after the estimated delivery date.
                 </p>
               </div>
-            ))}
+              <div className=''>
+                <p className='font-bold mt-2 text-md underline'>
+                Buyer protection
+                </p>
+                <p className='text-sm'>
+                Get a refund if the item arrives late or not as described.
+                </p>
+              </div>
           </div>
         </div>
       </div>

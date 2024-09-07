@@ -26,7 +26,7 @@ const Categories = () => {
 
   const handleClick = (cat) => {
     // Construct the URL with the query parameter
-    const url = `/productlist?q=${encodeURIComponent(cat)}`;
+    const url = `/productlist?z=${encodeURIComponent(cat)}`;
     // Navigate to the URL
     router.push(url);
   };

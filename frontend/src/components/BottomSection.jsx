@@ -10,7 +10,7 @@ const BottomSection = () => {
     const router = useRouter()
 
     const handleClick = (category) => {
-        router.push(`productlist?q=${category}`);
+        router.push(`productlist?z=${category}`);
     };
 
     return (
