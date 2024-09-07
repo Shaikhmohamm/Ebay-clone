@@ -26,7 +26,7 @@ const Categories = () => {
 
   const handleClick = (cat) => {
     // Construct the URL with the query parameter
-    const url = `/productlist?z=${encodeURIComponent(cat)}`;
+    const url = `/productlist?q=${encodeURIComponent(cat)}`;
     // Navigate to the URL
     router.push(url);
   };
@@ -45,7 +45,7 @@ const Categories = () => {
               className='w-28 h-28 sm:w-32 sm:h-32 md:w-36 md:h-36 lg:w-40 lg:h-40 bg-white shadow-lg rounded-full flex items-center justify-center hover:bg-blue-50 hover:shadow-xl transition duration-300 ease-in-out'
             >
               <img
-                onClick={()=> handleClick(category.name)}
+                onClick={()=> handleClick(category.subcatId)}
                 src={category.image}
                 className='w-full h-full object-cover rounded-md md:rounded-full cursor-pointer transition-transform transform hover:scale-105 hover:shadow-lg'
                 alt='img'
