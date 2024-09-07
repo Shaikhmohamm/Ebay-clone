@@ -4,7 +4,7 @@ dotenv.config()
 import category from '../data/categoryList.js'
 import Category from '../model/Category.js'
 import Subcategory from '../model/SubCategory.js'
-
+import Product from '../model/Product.js'
 
 
 const BASE_URL = process.env.BASE_URL
@@ -22,27 +22,43 @@ export const getAllCategory = async (req, res) => {
 
 
 export const getListOfProducts = async (req, res) => {
-    const { name, page = 0 } = req.query;
-  
-    try {
-        const response = await axios.get(`${BASE_URL}/item_search_2`, {
-            params: {
-              q: name,
-              page: page,
-              sort: 'default'
-            },
-            headers: {
-              "x-rapidapi-key": API_KEY,
-              "x-rapidapi-host": HOST
-            }
-          });
-  
-      res.json(response.data);
-    } catch (error) {
-      console.error('Error fetching products:', error);
-      res.status(500).json({ error: 'Failed to fetch products' });
+  const { subcatid, name } = req.query;  // Get subcatid and name (search input) from query parameters
+  // console.log('Subcategory ID:', subcatid);
+  // console.log('Search Name:', name);
+
+  try {
+    // Build a dynamic query object based on the available query parameters
+    let query = {};
+
+    // If subcatid is provided, filter by subcategory ID
+    if (subcatid) {
+      query.subcatId = subcatid;
     }
+
+    // If name is provided, perform a case-insensitive search on the product title
+    if (name) {
+      query.title = { $regex: name, $options: 'i' };  // Case-insensitive search using regex
+    }
+
+    // Find products based on the constructed query
+    const products = await Product.find(query);
+
+    console.log(`Found ${products.length} products`);
+
+    // If no products are found, return a 404 status
+    if (!products || products.length === 0) {
+      return res.status(404).json({ message: 'No products found.' });
+    }
+
+    // Return the found products
+    res.status(200).json(products);
+  } catch (error) {
+    console.error('Error fetching products:', error);
+    res.status(500).json({ error: 'Failed to fetch products' });
   }
+};
+
+
 
 
   export const getProductDetailsById = async (req, res) => {

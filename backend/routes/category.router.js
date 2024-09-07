@@ -5,6 +5,7 @@ const categoryRouter = express.Router()
 
 categoryRouter.get(`/category`, getAllCategory)
 
+// get the products list based on subcatId
 categoryRouter.get(`/products`, getListOfProducts)
 
 // route for product detail
