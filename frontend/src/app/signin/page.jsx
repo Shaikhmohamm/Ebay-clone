@@ -86,7 +86,7 @@ const handleLogin = async (values, { setSubmitting }) => {
         description: "admin logged in successfully",
         variant: "destructive",
       });
-      router.push(`/admin/dashboard`)
+      router.push(`/welcome`)
     }
     else {
       toast({

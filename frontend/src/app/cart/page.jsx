@@ -1,5 +1,5 @@
-"use client"
-import React from 'react'
+"use client";
+import React, { useState, useEffect } from 'react';
 import {
     Card,
     CardContent,
@@ -8,23 +8,38 @@ import {
     CardTitle,
 } from "@/components/ui/card";
 import { ShoppingCart, Trash } from "lucide-react";
-import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 import { toast } from '@/components/ui/use-toast';
+import { useSelector, useDispatch } from 'react-redux';
+import { checkAuth } from '@/redux/slice/authSlice';
+import { useRouter } from 'next/navigation'; // Use next/navigation for router
 
 const Cart = () => {
-    // state for total cost
+    const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+    const dispatch = useDispatch();
+    const router = useRouter(); // Initialize router
+
+    useEffect(() => {
+        dispatch(checkAuth()); // Check authentication status when the component mounts
+    }, [dispatch]);
+
+    useEffect(() => {
+        if (!isAuthenticated) {
+            router.push('/login'); // Redirect to login if not authenticated
+        }
+    }, [isAuthenticated, router]);
+
+    // State for total cost and items
     const [totalCost, setTotalCost] = useState(0);
-    // state for items
     const [items, setItems] = useState([]);
 
-    // get all products from cart-database and add them to state
+    // Get all products from cart-database and add them to state
     useEffect(() => {
         const fetchCartDetails = async () => {
             try {
-                let token = Cookies.get('UserAuth')
+                let token = Cookies.get('UserAuth');
                 const response = await axios.get(
                     "https://ebay-25ak.onrender.com/api/cart/data",
                     {
@@ -33,7 +48,7 @@ const Cart = () => {
                         },
                     }
                 );
-                console.log(response.data)
+                console.log(response.data);
                 const data = response.data.cart;
                 setItems(data);
             } catch (error) {
@@ -44,10 +59,10 @@ const Cart = () => {
         fetchCartDetails();
     }, []);
 
-    // to remove all products
+    // To remove all products
     const removeAllProducts = async () => {
         try {
-            let token = Cookies.get('UserAuth')
+            let token = Cookies.get('UserAuth');
             const response = await axios.delete(
                 "https://ebay-25ak.onrender.com/api/cart/removeall",
                 {
@@ -62,7 +77,7 @@ const Cart = () => {
                 title: "Success",
                 description: "All items removed",
                 variant: "destructive",
-              });
+            });
             console.log("ALL PRODUCTS REMOVED SUCCESSFULLY");
     
             const data = response.data.cart;
@@ -72,12 +87,11 @@ const Cart = () => {
         }
     };
 
-    // to remove one product from cart
+    // To remove one product from cart
     const removeProductById = async (item) => {
-        let token = Cookies.get('UserAuth')
+        let token = Cookies.get('UserAuth');
         const id = item.productId; // Keep productId as it is
         try {
-    
             const response = await axios.delete(
                 `https://ebay-25ak.onrender.com/api/cart/removeone/${id}`,
                 {
@@ -87,12 +101,11 @@ const Cart = () => {
                     },
                 }
             );
-            // displaying a toast for removal
             toast({
                 title: "Success",
                 description: "Item removed",
                 variant: "destructive",
-              });
+            });
 
             console.log("REMOVED SUCCESSFULLY");
     
@@ -103,8 +116,7 @@ const Cart = () => {
         }
     };
 
-
-    // update total cost after adding products to state
+    // Update total cost after adding products to state
     useEffect(() => {
         let cost = 0;
         if (items) {
@@ -114,7 +126,7 @@ const Cart = () => {
         }
         setTotalCost(cost);
         console.log("cart items : ", items);
-    }, [items, totalCost]);
+    }, [items]);
 
     return (
         <div className='lg:flex justify-center'>
@@ -199,7 +211,7 @@ const Cart = () => {
                 <div></div>
             )}
         </div>
-    )
-}
+    );
+};
 
-export default Cart
+export default Cart;

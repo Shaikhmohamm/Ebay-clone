@@ -21,7 +21,7 @@ export default function RootLayout({ children }) {
   const pathname = usePathname(); // Get the current route
 
   // Define paths where NavBar and SearchBar should not be displayed
-  const hideLayoutOnPaths = ["/signin", "/register"];
+  const hideLayoutOnPaths = ["/signin", "/register", '/admin/welcome', '/admin/dashboard', '/add-products'];
 
   return (
     <Provider store={store}>
