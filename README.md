@@ -76,9 +76,6 @@ This project is an Ebay clone built using Next.js and Express.js. The goal is to
 
    ```sh
    PORT="YOUR_PORT"
-   BASE_URL="YOUR_BASE_URL"
-   API_KEY="YOUR_API_KEY"
-   HOST="YOUR_HOST"
    MONGO_URL="YOUR_MONGO_URL"
    SECRET_TOKEN="YOUR_SECRET_TOKEN"
    ```
@@ -91,7 +88,7 @@ This project is an Ebay clone built using Next.js and Express.js. The goal is to
 
 ## API Documentation
 
-Full API documentation can be found [Here ]().
+Full API documentation can be found [Here ](https://documenter.getpostman.com/view/32824294/2sAXjRW9yY).
 
 ## Live Links
 
