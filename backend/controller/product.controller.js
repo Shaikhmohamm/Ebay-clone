@@ -110,5 +110,4 @@ export const getProductById = async (req, res) => {
       console.error('Error fetching product details:', error);
       res.status(500).json({ error: 'Server error fetching product details' });
     }
-    console.log('object')
   };

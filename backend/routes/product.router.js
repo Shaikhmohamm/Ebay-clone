@@ -9,6 +9,6 @@ productRouter.post('/add-product', addProduct)
 productRouter.get('/products', getListOfProducts)
 
 // route for product detail
-productRouter.get('/products/:id' , getProductById)
+productRouter.get('/products/:productId' , getProductById)
 
 export default productRouter;
