@@ -1,10 +1,8 @@
-import axios from 'axios'
 import dotenv from 'dotenv'
 dotenv.config()
 import category from '../data/categoryList.js'
 import Category from '../model/Category.js'
 import Subcategory from '../model/SubCategory.js'
-import Product from '../model/Product.js'
 
 
 const BASE_URL = process.env.BASE_URL
@@ -20,111 +18,63 @@ export const getAllCategory = async (req, res) => {
     }
 }
 
-
-export const getListOfProducts = async (req, res) => {
-  const { subcatid, name } = req.query;  // Get subcatid and name (search input) from query parameters
-  // console.log('Subcategory ID:', subcatid);
-  // console.log('Search Name:', name);
-
+// controller for adding the category
+export const addCategory = async (req, res) => {
   try {
-    // Build a dynamic query object based on the available query parameters
-    let query = {};
+    const { name, subcategories } = req.body;
 
-    // If subcatid is provided, filter by subcategory ID
-    if (subcatid) {
-      query.subcatId = subcatid;
+    // Create the category
+    const category = new Category({ name });
+
+    // Save subcategories if provided
+    const formattedSubcategories = [];
+    if (subcategories && subcategories.length > 0) {
+      for (const subcategoryName of subcategories) {
+        // Create each subcategory
+        const subcategory = new Subcategory({ name: subcategoryName, catId: category._id });
+        await subcategory.save();
+
+        // Add the subcategory with `subcatid` and `name`
+        formattedSubcategories.push({
+          subcatid: subcategory._id,
+          name: subcategory.name,
+        });
+      }
+      category.subcategories = formattedSubcategories;
     }
 
-    // If name is provided, perform a case-insensitive search on the product title
-    if (name) {
-      query.title = { $regex: name, $options: 'i' };  // Case-insensitive search using regex
-    }
+    await category.save();
 
-    // Find products based on the constructed query
-    const products = await Product.find(query);
+    // Format the response to include only `catid` and structured `subcategories`
+    const response = {
+      catid: category._id,
+      name: category.name,
+      subcategories: formattedSubcategories,
+      createdAt: category.createdAt,
+      updatedAt: category.updatedAt,
+    };
 
-    console.log(`Found ${products.length} products`);
-
-    // If no products are found, return a 404 status
-    if (!products || products.length === 0) {
-      return res.status(404).json({ message: 'No products found.' });
-    }
-
-    // Return the found products
-    res.status(200).json(products);
+    res.status(201).json({ message: 'Category created successfully', category: response });
   } catch (error) {
-    console.error('Error fetching products:', error);
-    res.status(500).json({ error: 'Failed to fetch products' });
+    res.status(500).json({ message: 'Error creating category', error });
   }
 };
 
+export const getCategoryWithSubcategories = async (req, res) => {
+  try {
+    
+    // get all the categories
+    const category = await Category.find({}).populate('subcategories');
 
-
-
-  export const getProductDetailsById = async (req, res) => {
-    const producId = req.params.id
-
-    try {
-        const response = await axios.get(`${BASE_URL}/item_detail`, {
-            params: {
-                itemId: producId
-            },
-            headers: {
-                "x-rapidapi-key": API_KEY,
-                "x-rapidapi-host": HOST
-            }
-        })
-
-        res.json(response.data.result)
-    } catch (error) {
-        res.status(500).json({ error: 'Failed to fetch product details' });
+    if (!category) {
+      return res.status(404).json({ message: 'Category not found' });
     }
-}
-  
 
-
-// controller for adding the category
-export const addCategory = async (req, res) => {
-    try {
-      const { name, subcategories } = req.body;
-  
-      // Create the category
-      const category = new Category({ name });
-  
-      // Save subcategories if provided
-      const formattedSubcategories = [];
-      if (subcategories && subcategories.length > 0) {
-        for (const subcategoryName of subcategories) {
-          // Create each subcategory
-          const subcategory = new Subcategory({ name: subcategoryName, catId: category._id });
-          await subcategory.save();
-  
-          // Add the subcategory with `subcatid` and `name`
-          formattedSubcategories.push({
-            subcatid: subcategory._id,
-            name: subcategory.name,
-          });
-        }
-        category.subcategories = formattedSubcategories;
-      }
-  
-      await category.save();
-  
-      // Format the response to include only `catid` and structured `subcategories`
-      const response = {
-        catid: category._id,
-        name: category.name,
-        subcategories: formattedSubcategories,
-        createdAt: category.createdAt,
-        updatedAt: category.updatedAt,
-      };
-  
-      res.status(201).json({ message: 'Category created successfully', category: response });
-    } catch (error) {
-      res.status(500).json({ message: 'Error creating category', error });
-    }
-  };
-
+    res.status(200).json({category});
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching category', error });
+  }
+};
 
 
 // for adding sub-category seperately
@@ -163,43 +113,3 @@ export const addSubcategory = async (req, res) => {
         res.status(500).json({ message: 'Error adding subcategory', error });
     }
 };
-
-
-  // Get a category along with its subcategories
-export const getCategoryWithSubcategories = async (req, res) => {
-    try {
-      
-      // get all the categories
-      const category = await Category.find({}).populate('subcategories');
-  
-      if (!category) {
-        return res.status(404).json({ message: 'Category not found' });
-      }
-  
-      res.status(200).json({category});
-    } catch (error) {
-      res.status(500).json({ message: 'Error fetching category', error });
-    }
-  };
-
-
-  // get a sub-category
-  export const getSubcategory = async (req, res) => {
-    try {
-      const { catId } = req.params;
-  
-      // Find the category by catId
-      const category = await Category.findOne({ catId });
-  
-      if (!category) {
-        return res.status(404).json({ message: 'Category not found' });
-      }
-  
-      res.status(200).json({
-        message: 'Subcategory retrieved successfully',
-        subcategory : category.subcategories,
-      });
-    } catch (error) {
-      res.status(500).json({ message: 'Error retrieving subcategory', error });
-    }
-  };

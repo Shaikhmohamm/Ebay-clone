@@ -50,6 +50,43 @@ export const addProduct = async (req, res) => {
     }
 };
 
+export const getListOfProducts = async (req, res) => {
+  const { subcatid, name } = req.query;  // Get subcatid and name (search input) from query parameters
+  // console.log('Subcategory ID:', subcatid);
+  // console.log('Search Name:', name);
+
+  try {
+    // Build a dynamic query object based on the available query parameters
+    let query = {};
+
+    // If subcatid is provided, filter by subcategory ID
+    if (subcatid) {
+      query.subcatId = subcatid;
+    }
+
+    // If name is provided, perform a case-insensitive search on the product title
+    if (name) {
+      query.title = { $regex: name, $options: 'i' };  // Case-insensitive search using regex
+    }
+
+    // Find products based on the constructed query
+    const products = await Product.find(query);
+
+    console.log(`Found ${products.length} products`);
+
+    // If no products are found, return a 404 status
+    if (!products || products.length === 0) {
+      return res.status(404).json({ message: 'No products found.' });
+    }
+
+    // Return the found products
+    res.status(200).json(products);
+  } catch (error) {
+    console.error('Error fetching products:', error);
+    res.status(500).json({ error: 'Failed to fetch products' });
+  }
+};
+
 
 export const getProductById = async (req, res) => {
     const { productId } = req.params;  // Get productId from the URL parameters
@@ -75,33 +112,3 @@ export const getProductById = async (req, res) => {
     }
     console.log('object')
   };
-  
-
-// Controller for searching products
-export const searchProducts = async (req, res) => {
-    const { name } = req.query;  // 'q' is the search term from frontend
-    console.log(name)
-    try {
-      // If no query term is provided, return all products
-      if (!name) {
-        return res.status(400).json({ message: 'No search query provided.' });
-      }
-  
-      // Find products that match the search term (using regex for partial matches)
-      const products = await Product.find({
-        title: { $regex: name, $options: 'i' },  // 'i' makes the search case-insensitive
-      });
-      console.log(products.length)
-  
-      // If no products are found, return a 404 status
-      if (products.length === 0) {
-        return res.status(404).json({ message: 'No products found.' });
-      }
-  
-      // Return the matching products
-      res.status(200).json(products);
-    } catch (error) {
-      console.error('Error searching products:', error);
-      res.status(500).json({ error: 'Server error while searching products' });
-    }
-  }; 
