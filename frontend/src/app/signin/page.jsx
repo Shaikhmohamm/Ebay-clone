@@ -7,7 +7,6 @@ import * as Yup from "yup";
 import logo from "../../../public/images.png"
 import axios from "axios";
 import { toast } from "@/components/ui/use-toast";
-import Cookies from "js-cookie";
 import { login } from "@/redux/slice/authSlice";
 import { useDispatch } from "react-redux";
 import Link from "next/link";
@@ -36,72 +35,50 @@ const LoginPage = () => {
 // Handle form submission
 const handleLogin = async (values, { setSubmitting }) => {
   try {
-    const response = await axios.post(`https://ebay-25ak.onrender.com/api/user/login`, values);
-    // console.log(response.data)
+    const response = await axios.post(
+      `http://localhost:3001/api/user/login`,
+      values,
+      { withCredentials: true } // IMPORTANT: This tells axios to include cookies in requests
+    );
 
-    const { success, loginToken, role, isVerified } = response.data;
-    // if (!isVerified) { 
-    //   console.log("not verified")
-    // }
+    const { success, role, isVerified } = response.data;
 
-    if (role === 'user' && success) {
-      // set isauthenticate to true
-      dispatch(login())
-      // Store the token in a cookie
-      Cookies.set('UserAuth', loginToken, {
-        expires: 7, // Token will expire in 7 days
-      });
-
-      // display a toast notification
+    if (success && role === 'user') {
       toast({
         title: "Success",
         description: "User logged in successfully",
         variant: "destructive",
       });
-
-      setSubmitting(false);
-      router.push("/"); // Redirect
-    } 
-    else if (!isVerified) {
-      console.log("Not a verified admin")
-      // display a toast notification
-      toast({
-        title: "Success",
-        description: "You are not a verified admin",
-        variant: "destructive",
-      });
-      // router.push(`/admin/dashboard`)
-    }
-    else if (role === 'admin' && success && isVerified) {
-      // set isauthenticate to true
+      console.log(`login dispatched successfully`)
+      // set this is as true globally
       dispatch(login())
-      // Store the token in a cookie
-      Cookies.set('UserAuth', loginToken, {
-        expires: 7, // Token will expire in 7 days
-      });
-      console.log(`you are verified now`)
-      // display a toast notification
+      
+      console.log('im user not admin')
+      router.push("/"); // Redirect user to the homepage
+    } else if (success && role === 'admin' && isVerified) {
       toast({
         title: "Success",
-        description: "admin logged in successfully",
+        description: "Admin logged in successfully",
         variant: "destructive",
       });
-      router.push(`/welcome`)
-    }
-    else {
+
+      // set this is as true globally
+      dispatch(login())
+
+      router.push("/admin/welcome"); // Redirect to the admin dashboard
+    } else {
       toast({
-        title: "Failed",
-        description: "Enter correct email/password",
+        title: "Verification Error",
+        description: "You are not a verified admin",
         variant: "destructive",
       });
     }
   } catch (error) {
     toast({
       title: "Error",
-      description: "Something went wrong. Please try again later.",
+      description: "Invalid email or password.",
       variant: "destructive",
     });
-
   } finally {
     setSubmitting(false);
   }

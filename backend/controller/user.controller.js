@@ -83,7 +83,16 @@ export const Login = async function (req, res) {
             userId: user._id,
             role : user.role
         }, process.env.SECRET_TOKEN);
-        res.cookie("UserAuth", jwkToken).status(200).json({
+
+        // Set cookie options
+        const cookieOptions = {
+            httpOnly: false, // Prevents client-side JavaScript from accessing the cookie
+            secure: process.env.NODE_ENV === 'production', // Sends cookie only over HTTPS in production
+            sameSite: 'strict', // Protects against CSRF by restricting cross-site cookie sending
+            maxAge: 60 * 60 * 1000 // Cookie expires in 1 hour (same as JWT token expiration)
+        };
+
+        res.cookie("UserAuth", jwkToken, cookieOptions).status(200).json({
             success: true,
             message: "User Login successfully",
             loginToken: jwkToken,

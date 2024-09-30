@@ -1,14 +1,39 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { Formik, Form, Field, FieldArray, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { toast } from "@/components/ui/use-toast";
+import Unauthorized from "@/components/Unauthorized";
+
 
 const AdminAddProduct = () => {
+
     const router = useRouter();
+    const [isAuthorized, setIsAuthorized] = useState(null); // State to track authorization status
     const [imageUrls, setImageUrls] = useState([""]);
+
+    useEffect(() => {
+        const checkAdminAuth = async () => {
+          try {
+            const response = await axios.get('http://localhost:3001/api/admin/check-auth', { withCredentials: true });
+            console.log(response.data.success)
+            // If authentication fails, set isAuthorized to false
+            if (!response.data.success) {
+              setIsAuthorized(false);
+            } else {
+              // If authentication succeeds, set isAuthorized to true and fetch categories
+              setIsAuthorized(true);
+            }
+          } catch (error) {
+            console.error('Authentication error:', error);
+            setIsAuthorized(false);
+          }
+        };
+    
+        checkAdminAuth();
+      }, [router]);
 
     // Setting the initial form values
     const initialValues = {
@@ -66,6 +91,16 @@ const AdminAddProduct = () => {
             console.error("Error adding product:", error);
         }
     };
+
+
+    // Show unauthorized page if the user is not authorized
+    if (isAuthorized === false) {
+        return <Unauthorized />;
+    }
+
+    if (isAuthorized === null) {
+        return <div>Loading...</div>
+    }
 
     return (
         <div className="p-6 max-w-4xl mx-auto bg-white rounded-lg shadow-lg">

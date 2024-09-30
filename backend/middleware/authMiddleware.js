@@ -31,6 +31,7 @@ try{
 		req.userId = decodedToken.userId;
 		req.role = decodedToken.role; // Add role to request object
 		
+		console.log(req.role)
         // Proceed to the next middleware
 		next();
 } catch (error) {
