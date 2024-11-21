@@ -15,7 +15,9 @@ function ProductList() {
   // get the name and page value from params
   const searchParams = useSearchParams();
   const subcatid = searchParams.get('q');
+  // console.log(subcatid)
   const name = searchParams.get('z');
+  // console.log(name)
 
   // fetching the list of products
   useEffect(() => {
@@ -25,7 +27,7 @@ function ProductList() {
         const response = await axios.get('https://ebay-25ak.onrender.com/api/products', {
           params: { subcatid, name },
         });
-        console.log('Response Data:', response.data);
+        // console.log('Response Data:', response.data);
         setProducts(response.data);
       } catch (error) {
         console.error('Error fetching products:', error.response ? error.response.data : error.message);
@@ -42,7 +44,7 @@ function ProductList() {
 
  
   useEffect(() => {
-      console.log('Updated products:', products);
+      // console.log('Updated products:', products);
   }, [products]);
 
 

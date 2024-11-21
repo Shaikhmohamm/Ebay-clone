@@ -31,6 +31,7 @@ const HamMenu = ({isAuthenticated}) => {
         try {
             const response = await axios.get('https://ebay-25ak.onrender.com/api/category');
             const slicedArr = response.data.result.resultList.slice(2, 8);
+            // console.log(slicedArr)
             setCategories(slicedArr);
         } catch (error) {
             console.error('Error fetching categories:', error);
@@ -55,7 +56,7 @@ const HamMenu = ({isAuthenticated}) => {
                       <SheetTitle className="text-base font-normal flex flex-col gap-5 text-start ">
                           {categories.map((category) => (
                               <div key={category.id}>
-                                  <Link href={`productlist?q=${encodeURIComponent(category.name)}`} className="">
+                                  <Link href={`productlist?q=${encodeURIComponent(category.subcatId)}`} className="">
                                       <SheetClose className="flex gap-5 justify-start items-center">
                                           <img
                                               src={category.image}
@@ -96,7 +97,6 @@ const HamMenu = ({isAuthenticated}) => {
                                       </Link>
                                   </div>
                           )}
-                          
                       </div>
                   </SheetHeader>
               </SheetContent>
