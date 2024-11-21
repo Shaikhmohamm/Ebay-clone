@@ -11,12 +11,12 @@ import { checkAuth, logout } from '@/redux/slice/authSlice';
 const NavBar = () => {
 
     const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-    console.log(isAuthenticated)
+    // console.log(isAuthenticated)
     const dispatch = useDispatch();
     const router = useRouter()
 
     const tok = Cookies.get('UserAuth')
-    console.log(tok)
+    // console.log(tok)
 
     useEffect(() => {
         dispatch(checkAuth()); // Check authentication status when the component mounts
@@ -36,7 +36,7 @@ const NavBar = () => {
                 variant: "destructive",
             });
             // redirect
-            router.push("/");
+            router.push("/");s
         } catch (error) {
             console.error("Logout failed:", error);
         }

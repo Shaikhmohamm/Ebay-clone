@@ -29,10 +29,10 @@ export default function ProductDetail({ params }) {
 
     const fetchProduct = async () => {
       try {
-        console.log(`initially`,product)
+        // console.log(`initially`,product)
         const response = await axios.get(`https://ebay-25ak.onrender.com/api/products/${productId}`);
         setProduct(response.data);
-        console.log(`after changing`,product)
+        // console.log(`after changing`,product)
         setLoading(false);
       } catch (err) {
         setLoading(false);
@@ -44,7 +44,7 @@ export default function ProductDetail({ params }) {
 
   // to check the state of product
   useEffect(() => {
-    console.log("Product state updated:", product);
+    // console.log("Product state updated:", product);
   }, [product]);
 
 
@@ -76,7 +76,7 @@ export default function ProductDetail({ params }) {
             },
           }
         );
-        console.log(`api response`, response.data)
+        // console.log(`api response`, response.data)
         toast({
           title: "Item added to cart",
           className: "text-red-600 bg-white hover:bg-gray-100 font-bold",
