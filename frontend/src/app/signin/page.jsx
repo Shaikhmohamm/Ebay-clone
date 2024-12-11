@@ -33,56 +33,60 @@ const LoginPage = () => {
   });
 
 // Handle form submission
-const handleLogin = async (values, { setSubmitting }) => {
-  try {
-    const response = await axios.post(
-      `https://ebay-25ak.onrender.com/api/user/login`,
-      values,
-      { withCredentials: true } // IMPORTANT: This tells axios to include cookies in requests
-    );
+  const handleLogin = async (values, { setSubmitting }) => {
+    try {
+      const response = await axios.post(
+        `https://ebay-25ak.onrender.com/api/user/login`,
+        values,
+        { withCredentials: true } // IMPORTANT: This tells axios to include cookies in requests
+      );
 
-    const { success, role, isVerified } = response.data;
+      const { success, role, isVerified } = response.data;
+      console.log(response.data) // api working fine
 
-    if (success && role === 'user') {
-      toast({
-        title: "Success",
-        description: "User logged in successfully",
-        variant: "destructive",
-      });
-      console.log(`login dispatched successfully`)
-      // set this is as true globally
-      dispatch(login())
+      if (success && role === 'user') {
+        toast({
+          title: "Success",
+          description: "User logged in successfully",
+          variant: "destructive",
+        });
+        console.log(`login dispatched successfully`)
+        // set this is as true globally
+        dispatch(login())
+
+        console.log('im user not admin')
+        router.push("/"); // Redirect user to the homepage
+      } 
+      else if (success && role === 'admin' && isVerified) {
+        toast({
+          title: "Success",
+          description: "Admin logged in successfully",
+          variant: "destructive",
+        });
+
+        // set this is as true globally
+        dispatch(login())
+
+        router.push("/admin/welcome"); // Redirect to the admin dashboard
+      }
+      // if (!isVerified) {
+      //   toast({
+      //     title: "Fail",
+      //     description: "You are not a verified admin",
+      //     variant: "destructive",
+      //   });
+      // }
       
-      console.log('im user not admin')
-      router.push("/"); // Redirect user to the homepage
-    } else if (success && role === 'admin' && isVerified) {
+    } catch (error) {
       toast({
         title: "Success",
-        description: "Admin logged in successfully",
+        description: "Invalid email or password.",
         variant: "destructive",
       });
-
-      // set this is as true globally
-      dispatch(login())
-
-      router.push("/admin/welcome"); // Redirect to the admin dashboard
-    } else {
-      toast({
-        title: "Verification Error",
-        description: "You are not a verified admin",
-        variant: "destructive",
-      });
+    } finally {
+      setSubmitting(false);
     }
-  } catch (error) {
-    toast({
-      title: "Error",
-      description: "Invalid email or password.",
-      variant: "destructive",
-    });
-  } finally {
-    setSubmitting(false);
-  }
-};
+  };
 
 
   return (

@@ -13,7 +13,7 @@ const app = express();
 // CORS setup - allow multiple origins (local and production)
 const allowedOrigins = [
   'http://localhost:3000', // Local development
-  'https://ebay-25ak.onrender.com' // Production (Vercel)
+  'https://ebaycom-shaikhmohamms-projects.vercel.app' // Production (Vercel)
 ];
 
 app.use(cors({
